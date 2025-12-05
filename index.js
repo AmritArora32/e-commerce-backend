@@ -14,7 +14,12 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
-
+app.get('/',(req,res) =>{
+    res.send({
+        activeStatus:true,
+        error:false,
+    })
+});
 // API endpoints
 app.use("/images", express.static("uploads"));
 app.use("/user", userRoutes);
