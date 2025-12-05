@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Environment variables (Sensitive data)
+.env
+.env.*
+
+# Build output (for Vite/Node)
+dist/
+build/
+
+# Logs & Temp files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log
+
+# Vite-specific (often inside node_modules, but good to be explicit)
+.vite/
+
+# Deployment config (If sensitive, add render.yaml here)
+# render.yaml
+
+# OS/Editor files (Common additions)
+.DS_Store
+.vscode/
