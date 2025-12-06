@@ -12,7 +12,9 @@ const PORT = process.env.PORT || 4000;
 // connect to db
 connectDB();
 
-app.use(cors());
+app.use(cors({
+    origin: ["https://delicious-e-commerce-site.vercel.app/"]
+}));
 app.use(express.json());
 app.get('/',(req,res) =>{
     res.send({
