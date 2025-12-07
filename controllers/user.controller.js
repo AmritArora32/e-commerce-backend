@@ -3,7 +3,22 @@ import bcrypt from "bcryptjs";
 
 export const register = async(req,res) =>{
     try{
+        // Check if file was uploaded
+        if(!req.file){
+            return res
+            .status(400)
+            .json({message: "Profile image is required", success: false});
+        }
+
         const {firstName, lastName, email, password} = req.body;
+        
+        // Validate required fields
+        if(!firstName || !lastName || !email || !password){
+            return res
+            .status(400)
+            .json({message: "All fields are required", success: false});
+        }
+
         // console.log(firstName, lastName, email, password);
         const image_filename = `${req.file.filename}`;
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -20,9 +35,10 @@ export const register = async(req,res) =>{
         .json({message: "user created Succesfully", success: true, user});
     }
     catch(error){
+        console.error("Registration error:", error);
         return res
         .status(500)
-        .json({message: "internal server error", success: false});
+        .json({message: error.message || "internal server error", success: false});
     }
 }
 
