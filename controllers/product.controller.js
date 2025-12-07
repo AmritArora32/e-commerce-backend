@@ -1,4 +1,5 @@
 import Product from '../models/product.model.js'
+import { uploadToCloudinary } from '../config/cloudinary.js';
 
 export const getProducts = async (req,res)=>{
     try{
@@ -27,14 +28,15 @@ export const addProduct = async (req,res)=>{
             .json({message:"All fields are required", success:false});
         }
 
-        const image_filename = `${req.file.filename}`;
+        // Upload image to Cloudinary
+        const imageUrl = await uploadToCloudinary(req.file.buffer, 'ecommerce/products');
 
         const product = await Product.create({
             name,
             category,
             price,
             description,
-            image: image_filename,
+            image: imageUrl,
         });
         res
         .status(201)

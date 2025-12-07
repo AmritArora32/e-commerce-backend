@@ -1,5 +1,6 @@
 import User from './../models/user.model.js';
 import bcrypt from "bcryptjs";
+import { uploadToCloudinary } from '../config/cloudinary.js';
 
 export const register = async(req,res) =>{
     try{
@@ -19,15 +20,16 @@ export const register = async(req,res) =>{
             .json({message: "All fields are required", success: false});
         }
 
-        // console.log(firstName, lastName, email, password);
-        const image_filename = `${req.file.filename}`;
+        // Upload image to Cloudinary
+        const imageUrl = await uploadToCloudinary(req.file.buffer, 'ecommerce/users');
+        
         const hashedPassword = await bcrypt.hash(password, 10);
         const user = await User.create({
             firstName,
             lastName,
             email,
             password: hashedPassword,
-            image: image_filename,
+            image: imageUrl,
         });
         console.log("user" , user);
         return res
