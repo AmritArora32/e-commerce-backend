@@ -28,7 +28,7 @@ app.get('/',(req,res) =>{
 });
 // API endpoints
 app.use("/user", userRoutes);
-app.use("/product",productRoutes);
+app.use("/product", productRoutes);
 
 // app.use("/", (req, res)=>{
 //     res.send("Response is Send");
